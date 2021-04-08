@@ -26,12 +26,12 @@ C.
 	1.
 		[btan9967@isp02 homework05]$ kubectl apply -f deployment-hello-name-C.yml
 		deployment.apps/hello-deployment configured
-	2.
+	2. Removed irrelevant portions. Only copy pasted up until IP address is shown.
 			[btan9967@isp02 homework05]$ kubectl get pods -o wide
-		NAME                                READY   STATUS    RESTARTS   AGE     IP             NODE                         NOMINATED NODE   READINESS GATES                         <none>           <none>
-		hello-deployment-69bdb9bbb5-6xg97   1/1     Running   0          5m16s   10.244.6.176   c03                          <none>           <none>
-		hello-deployment-69bdb9bbb5-r5j25   1/1     Running   0          5m14s   10.244.10.23   c009.rodeo.tacc.utexas.edu   <none>           <none>
-		hello-deployment-69bdb9bbb5-rfhh2   1/1     Running   0          5m11s   10.244.5.137   c04                          <none>           <none>
+		NAME                                READY   STATUS    RESTARTS   AGE     IP             NODE                         	
+		hello-deployment-69bdb9bbb5-6xg97   1/1     Running   0          5m16s   10.244.6.176   c03                          
+		hello-deployment-69bdb9bbb5-r5j25   1/1     Running   0          5m14s   10.244.10.23   c009.rodeo.tacc.utexas.edu   
+		hello-deployment-69bdb9bbb5-rfhh2   1/1     Running   0          5m11s   10.244.5.137   c04                          
 	3. This matches what is gotten in 2.
 		[btan9967@isp02 homework05]$ kubectl logs hello-deployment-69bdb9bbb5-6xg97
 		Hello, Benjamin from 10.244.6.176!
