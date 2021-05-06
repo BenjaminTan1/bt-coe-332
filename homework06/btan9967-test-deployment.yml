@@ -1,0 +1,34 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-test-redis
+  labels:
+    app: btan9967-test-redis
+    username: btan9967
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: btan9967-test-redis
+      username: btan9967
+      env: test
+  template:
+    metadata:
+      labels:
+        app: btan9967-test-redis
+        username: btan9967
+        env: test
+    spec:
+      containers:
+        - name: btan9967-test-redis
+          imagePullPolicy: Always
+          image: redis:5.0.0
+          volumeMounts:
+          - name: btan9967-test-data
+            mountPath: "/data"
+      volumes:
+      - name: btan9967-test-data
+        persistentVolumeClaim:
+          claimName: btan9967-test-data

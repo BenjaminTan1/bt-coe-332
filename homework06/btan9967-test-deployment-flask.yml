@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-test-flask
+  labels:
+    app: btan9967-test-flask
+    username: btan9967
+    env: test
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: btan9967-test-flask
+      username: btan9967
+      env: test
+  template:
+    metadata:
+      labels:
+        app: btan9967-test-flask
+        username: btan9967
+        env: test
+    spec:
+      containers:
+        - name: btan9967-test-flask
+          imagePullPolicy: Always
+          image: benjamintan1/animals:latest
+          env:
+          - name: FLASK_APP
+            value: "app.py"
+          ports:
+          - name: http
+            containerPort: 5000
