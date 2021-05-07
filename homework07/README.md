@@ -1,6 +1,10 @@
 <h1>HOMEWORK 07 README</h1>
 
 <h2>PA</h2>
+<h3>1.</h3>
+<p>docker build -f Dockerfile -t benjamintan1/hw7:latest .</p>
+<p>docker push benjamintan1/hw7:latest</p>
+<h3>2.</h3>
 <p>[btan9967@isp02 api]$ kubectl apply -f btan9967-hw7-flask-deployment.yml</p>
 <p>[btan9967@isp02 api]$ kubectl apply -f btan9967-hw7-flask-service.yml</p>
 <p>[btan9967@isp02 db]$ kubectl apply -f btan9967-hw7-redis-deployment.yml</p>
