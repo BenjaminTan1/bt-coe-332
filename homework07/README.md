@@ -63,3 +63,17 @@
 <p>In [2]: rd = redis.StrictRedis(host="IP_ADDRESS_REDIS", port=6379, db=3)</p>
 <p>In [3]: for key in rd.keys():</p>
 <p>   ...:     print(rd.hgetall(key))</p>
+---
+<p>Sample Output</p>
+<p>{b'status': b'complete',
+ b'start': b'go!',
+ b'end': b'stop!',
+ b'id': b'93845f36-1522-4221-2da0-8963f6740e33',
+ b'worker': b'WORKER_IP_ADDRESS1'}</p>
+ <p>{b'status': b'complete',
+ b'start': b'go!',
+ b'end': b'stop!',
+ b'id': b'e8323442-8e38-4990-a712-8398822bf8a4',
+ b'worker': b'WORKER_IP_ADDRESS2'}</p>
+ ...
+ ---
