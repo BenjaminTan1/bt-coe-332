@@ -41,7 +41,7 @@
  b'start': b'go!',
  b'end': b'stop!',
  b'id': b'23sf822-39b3-404c-9ba2-6e3df87b33b4',
- b'worker': b'WORKER_IP_ADDRESS'}
+ b'worker': b'WORKER_IP_ADDRESS'}</p>
  ---
 <h2>PB</h2>
 <p>Functionality added to worker.py and jobs.py. See above output for example of where the <WORKER_IP_ADDRESS> is printed.
