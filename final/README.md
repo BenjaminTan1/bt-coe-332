@@ -29,3 +29,4 @@ Output:
 Then, make sure to load in the data from data.json into redis first before executing other commands.
 
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/load
+    The file data.json was imported into database.
