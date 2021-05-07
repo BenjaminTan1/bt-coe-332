@@ -30,13 +30,13 @@ def instructions():
     /                            # General info.
     /load                        # Adds data.json info to the database.
     /getAll                      # Returns the database.
-    /getAnimal/?Animal_ID=...    # Query an animal ID.
-    /animalType/<Animal_Type>           # Sort by animal type. 
-    /updateAnimal/?Animal_ID=... # Updates an animal with an animal ID specified
+    /getAnimal/?animal_id=...    # Query an animal ID.
+    /outcomeType/<outcome_type>  # Sort by animal type. 
+    /updateAnimal/?animal_id=... # Updates an animal with an animal ID specified.
     /addAnimal                   # Adds an animal.
-    /delete/?Animal_ID=...       # Deletes an animal with an animal ID specified
+    /delete/?animal_id=...       # Deletes an animal with an animal ID specified.
     /jobs                        # Lists jobs.
-    /download/<jobuuid>
+    /download/<jobuuid>          # Obtains image from a job.
     
 """
 # Loads data into the redis database.
@@ -45,7 +45,7 @@ def loaddata():
     with open("data.json","r") as f:
         dict = json.load(f)
     
-    rd.set('intakes_key', json.dumps(dict, indent=2))
+    rd.set('key', json.dumps(dict, indent=2))
         
     return 'The file data.json was imported into database.\n'
 
@@ -53,7 +53,7 @@ def loaddata():
 def GetAll():
     return json.dumps(get_data(), indent=2)
 
-# Route to add an animal
+# Create Route
 @app.route('/addAnimal', methods = ['GET','POST'])
 def Add():
     try:
@@ -63,72 +63,79 @@ def Add():
     
     test = get_data()
     test['intakes'].append(add)
-    rd.set('intakes_key', json.dumps(test))
+    rd.set('key', json.dumps(test))
 
     return json.dumps(get_data, indent=2)
 
-# Route to fulfill the R of CRUD
+# Read Route
 @app.route('/getAnimal/', methods=['GET'])
 def Get_Animal():
     test = get_data()
     output= {}
-    animal_id = request.args.get('Animal_ID')
-    for x in test['intakes']:
-        if x['Animal ID'] == animal_id:
+    animal_id = request.args.get('animal_id')
+    for x in test:
+        if x['animal_id'] == animal_id:
             output = x
 
     return json.dumps(output, indent = 2)
 
-# Route to fulfill the U of CRUD
+# Update Route
 @app.route('/updateAnimal/', methods=['GET'])
 def Update():
     test = get_data()
 
-    animal_id = request.args.get('Animal_ID')
+    animal_id = request.args.get('animal_id')
     name = request.args.get('name')
-    intaketype = request.args.get('intaketype')
-    intakecondition = request.args.get('intakecondition')
-    animaltype = request.args.get('Animal_Type')
+    datetime = request.args.get('datetime')
+    monthyear = request.args.get('monthyear')
+    date_of_birth = request.args.get('date_of_birth')
+    outcome_type = request.args.get('outcome_type')
+    animal_type = request.args.get('animal_type')
+    sex_upon_outcome = request.args.get('sex_upon_outcome')
+    age_upon_outcome = request.args.get('age_upon_outcome')
     breed = request.args.get('breed')
     color = request.args.get('color')
 
-    intake = {}
-    for x in test['intakes']:
-        if x['Animal ID'] == animal_id:
-            x['Name'] = name
-            x['Intake Type'] = intaketype
-            x['Intake Condition'] = intakecondition
-            x['Animal_Type'] = animaltype
-            x['Breed'] = breed
-            x['Color'] = color
-        
-    rd.set('intakes_key', json.dumps(test))
+    for x in test:
+        if x['animal_id'] == animal_id:
+            x['name'] = name
+            x['datetime'] = datetime
+            x['monthyear'] = monthyear
+            x['date_of_birth'] = date_of_birth
+            x['outcome_type'] = outcome_type
+            x['animal_type'] = animal_type
+            x['sex_upon_outcome'] = sex_upon_outcome
+            x['age_upon_outcome'] = age_upon_outcome
+            x['breed'] = breed
+            x['color'] = color
+         
+    rd.set('key', json.dumps(test))
     return json.dumps(intake, indent=2)
 
-# Route to fulfill the D of CRUD
+# Delete Route
 @app.route('/delete/', methods=['GET'])
 def delete():
     test = get_data()
-    animal_id = request.args.get('Animal_ID')
-    for x in test['intakes']:
-        if x['Animal ID'] == animal_id:
-            test['intakes'].remove(x)
+    animal_id = request.args.get('animal_id')
+    for x in test:
+        if x['animal_id'] == animal_id:
+            test.remove(x)
     
-    rd.set('intakes_key', json.dumps(test))
+    rd.set('key', json.dumps(test))
 
-    return 'Animal with ID {} deleted.'.format(animal_id)
+    return 'Animal deleted.'
 
-# Filter by animal type/ extra route (Dog, Cat, Bird, Other)
-@app.route('/animalType/<Animal_Type>', methods=['GET'])
+# Extra route functionality in order to double check the work of matlab plots.
+@app.route('/outcomeType/<outcome_type>', methods=['GET'])
 def SortByType(Animal_Type):
     test = get_data()
-    jsonList = test['intakes']
+    jsonList = test
 
-    output = [x for x in jsonList if x['Animal Type'] == Animal_Type]
+    output = [x for x in jsonList if x['outcome_type'] == outcome_type]
 
     return json.dumps(output, indent=2)
 
-# Allows the user to submit a Job request for the worker that uses the DateTime to graph the number of animals during that time
+# Job for making matlab plots
 @app.route('/jobs', methods=['POST'])
 def jobs_api():
     try:
@@ -139,7 +146,7 @@ def jobs_api():
     
     return json.dumps(jobs.add_job(job['start'], job['end']))
 
-# Download image based on ID
+# Image download
 @app.route('/download/<jobuuid>', methods=['GET'])
 def download(jobuuid):
     path = f'/app/{jobuuid}.png'
