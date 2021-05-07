@@ -26,9 +26,10 @@
 <p>We exec into a debug pod created previously with redis installed</p>
 <p>kubectl exec -it py-debug-deployment-5cc8cdd65f-ttl84 -- /bin/bash</p>
 <p>Then:</p>
-<p>curl -X POST -H "content-type: application/json" -d '{"start": "go!", "end": "stop!"}' <IP_ADDRESS_FLASK>:5000/jobs</p>
+<p>curl -X POST -H "content-type: application/json" -d '{"start": "go!", "end": "stop!"}' IP_ADDRESS_FLASK:5000/jobs</p>
 <p>Output Sample: {"status": "submitted", "start": "go!", "end": "stop!", "id" ""23sf822-39b3-404c-9ba2-6e3df87b33b4"}
-<p>Where <IP_ADDRESS_FLASK> is the address found upon kubectl get service.</p>
+<p>Where IP_ADDRESS_FLASK is the address found upon kubectl get service.</p>
+---
 <p>Then, while this is running, we open up another terminal then, in an interactive python shell, execute commands:</p>
 <p>In [1]: import redis</p>
 <p>In [2]: rd = redis.StrictRedis(host="IP_ADDRESS_REDIS", port=6379, db=3)</p>
@@ -40,7 +41,8 @@
  b'start': b'go!',
  b'end': b'stop!',
  b'id': b'23sf822-39b3-404c-9ba2-6e3df87b33b4',
- b'worker': b'<WORKER_IP_ADDRESS>'}
+ b'worker': b'WORKER_IP_ADDRESS'}
+ ---
 <h2>PB</h2>
 <p>Functionality added to worker.py and jobs.py. See above output for example of where the <WORKER_IP_ADDRESS> is printed.
 <h2>PC</h2>
