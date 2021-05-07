@@ -44,5 +44,18 @@
  b'worker': b'WORKER_IP_ADDRESS'}</p>
  ---
 <h2>PB</h2>
-<p>Functionality added to worker.py and jobs.py. See above output for example of where the <WORKER_IP_ADDRESS> is printed.
+<p>Functionality added to worker.py and jobs.py. See above output for example of where the <WORKER_IP_ADDRESS> is printed.</p>
 <h2>PC</h2>
+<p>Using the debug pod, we do:</p>
+<p>for i in range(1,10)</p>
+<p>do</p>
+<p>curl -X POST -H "content-type: application/json" -d '{"start": "go!", "end": "stop!"}'  IP_ADDRESS_FLASK:5000/jobs</p>
+---
+<p>{"status": "submitted", "start": "go!", "end": "stop!", "id": "93845f36-1522-4221-2da0-8963f6740e33"}</p>
+<p>{"status": "submitted", "start": "go!", "end": "stop!", "id": "e8323442-8e38-4990-a712-8398822bf8a4"}</p>
+<p>{"status": "submitted", "start": "go!", "end": "stop!", "id": "72c22e2d-3ec9-48cc-9c7e-24a01b638ff2"}</p>
+<p>{"status": "submitted", "start": "go!", "end": "stop!", "id": "735247c5-1537-480b-a82a-da43891bda84"}</p>
+<p>...</p>
+<p>Same output wiht different UUID</p>
+---
+<p>Then when we run the same commands as before with print(rd.hgetall(key)) in the python interactive shell, we get that each worker did 5 tasks each</p>
