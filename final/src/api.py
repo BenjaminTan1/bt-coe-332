@@ -26,17 +26,17 @@ def get_data():
 @app.route('/', methods=['GET'])
 def instructions():
     return """
-    Try these routes:
-    /                            # General info.
-    /load                        # Adds data.json info to the database.
-    /getAll                      # Returns the database.
-    /getAnimal/?animal_id=...    # Query an animal ID.
-    /outcomeType/<outcome_type>  # Sort by animal type. 
-    /updateAnimal/?animal_id=... # Updates an animal with an animal ID specified.
-    /addAnimal                   # Adds an animal.
-    /delete/?animal_id=...       # Deletes an animal with an animal ID specified.
-    /jobs                        # Lists jobs.
-    /download/<jobuuid>          # Obtains image from a job.
+    The route are as follows:
+    curl <host>:<flask_port>/                            			# General info.
+    curl <host>:<flask_port>/load                        			# Adds data.json info to the database.
+    curl <host>:<flask_port>/getAll                      			# Returns the database.
+    curl <host>:<flask_port>/getAnimal/?animal_id=...    			# Query an animal ID.
+    curl <host>:<flask_port>/outcomeType/<outcome_type>  			# Sort by animal type. 
+    curl <host>:<flask_port>/updateAnimal/?animal_id=... 			# Updates an animal with an animal ID specified.
+    curl -X POST -H "content-type: application/json" -d '{<Animal>} <host>:<flask_port>/addAnimal # Add an animal.
+    curl <host>:<flask_port>/delete/?animal_id=...       			# Deletes an animal with an animal ID specified.
+    curl -X POST -d <host>:<flask_port>/jobs                        		# Lists jobs.
+    curl <host>:<flask_port>/download/<jobuuid>          			# Obtains image from a job.
     
 """
 # Loads data into the redis database.
