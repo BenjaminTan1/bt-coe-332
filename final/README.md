@@ -5,8 +5,9 @@
 
 <h3>Instructions</h3>
 <p>Look through DEPLOYMENT.md under the directory "documentation", then to get instructions for routes, run the command below after execing into an interactive python shell.</p>
+---
 <p>curl host:flask_port/</p>
-
+---
 <h3>File Structure</h3>
 <p>data</p>
 <p>- redis.conf</p>
