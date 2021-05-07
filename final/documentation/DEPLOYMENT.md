@@ -1,1 +1,11 @@
-
+<h1>Deployment Information</h1>
+<h2>Docker Images</h2>
+<p>In the Makefile, use:</p>
+<p>$ make build-all</p>
+<h2>Kubernetes Execution</h2>
+<p>In the deploy directory, run the commands:</p>
+---
+<p>kubectl apply -f ./api</p>
+<p>kubectl apply -f ./redis</p>
+<p>kubectl apply -f ./worker</p>
+---
