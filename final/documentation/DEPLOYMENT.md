@@ -10,6 +10,8 @@
 <p>kubectl apply -f ./worker</p>
 ---
 <p>To verify, you can run commands:</p>
+---
 <p>kubectl get pods</p>
 <p>kubectl get services</p>
 <p>kubectl get pvc</p>
+---
