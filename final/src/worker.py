@@ -21,32 +21,42 @@ rd = redis.StrictRedis(host=redis_ip, port=6379, db=0)
 
 @q.worker
 def execute_job(jid):
-    jobid, status, start, end = rd.hmget(generate_job_key(jid), 'id', 'status', 'start', 'end', 'animal_type')
+    jobid, status, start, end = rd.hmget(generate_job_key(jid), 'id', 'status', 'start', 'end', 'outcome_type')
     data = json.loads(rd.get('data'))
     x_values_to_plot = []
     y_values_to_plot = []
 
-    # Fill values to plot...
-    # Want x values to be Time, and y values to be the number of intakes on the date
-    start = job['start']
-    end = job['end']
+    # Fill X and Y coordinates
     
-    # Use datetime to pull the request startdate and enddate
-    startdate = datetime.datetime.strptime(start,'%m-$d-%Y')
+    Euthanized = 0
+    Returned = 0
+    Adoption = 0
+    Transfer = 0
 
-    enddate = datetime.datetime.strptime(end, '%m-%d-$Y')
-    
-    # initialize the base animal count per day at 0
-    animalcount = 0
+    x_values_to_plot.append(1)
+    x_values_to_plot.append(2)
+    x_values_to_plot.append(3)
+    x_values_to_plot.append(4)
+
     for key in rd.keys():
-        datetimekey = str(rd.get(key, 'DateTime'))
-        if (start <= datetimekey
-            x_values_to_plot.append(key)
-            y_values_to_plot.append(key)
+        outcome_type_key = str(rd.get(key, 'outcome_type'))
+        if (outcome_type_key == 'Euthanasia'):
+            Euthanized = Euthanized + 1
+        if (outcome_type_key == 'Return to Owner'):
+            Returned = Returned + 1
+        if (outcome_type_key == 'Adoption'):
+            Adoption = Adoption + 1
+        if (outcome_type_key == 'Transfer'):
+            Transfer = Transfer + 1
+    
+    y_values_to_plot.append(Euthanized)
+    y_values_to_plot.append(Returned)
+    y_values_to_plot.append(Adoption)
+    y_values_to_plot.append(Transfer)
 
     plt.scatter(x_values_to_plot, y_values_to_plot)
-    plt.xlabel('Time')
-    plt.ylabel('Number of Intakes')
+    plt.xlabel('Outcome Type')
+    plt.ylabel('Number of Animals')
     plt.savefig('/output_image.png')
 
 
