@@ -1,2 +1,7 @@
 <h1>HOMEWORK 07 README
 
+<h2>PA
+
+<h2>PB
+  
+<h3>PC
