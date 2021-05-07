@@ -8,34 +8,29 @@
 ---
 <p>curl host:flask_port/</p>
 ---
-<h3>File Structure</h3>
-<p>data</p>
-<p>- redis.conf</p>
-<p>deploy</p>
-<p>--- api</p>
-<p>------ final-flask-deployment.yml</p>
-<p>------ final-flask-service.yml</p>
-<p>--- redis</p>
-<p>------ final-redis-deployment.yml</p>
-<p>------ final-redis-pvc.yml</p>
-<p>------ final-redis-service.yml</p>
-<p>--- worker</p>
-<p>------ final-worker-deployment.yml</p>
-<p>docker</p>
-<p>--- docker-compose.yml</p>
-<p>--- Dockerfile.api</p>
-<p>--- Dockerfile.db</p>
-<p>--- Dockerfile.wrk</p>
-<p>src</p>
-<p>--- data.json</p>
-<p>--- api.py</p>
-<p>--- worker.py</p>
-<p>--- jobs.py</p>
-<p>documentation</p>
-<p>--- DEPLOYMENT.md</p>
-<p>Makefile</p>
-<p>README.md</p>
+<p>Example:</p>
+<p>root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/</p>
 
-
+    The route are as follows:
+    curl <host>:<flask_port>/
+# General info.
+    curl <host>:<flask_port>/load
+# Adds data.json info to the database.
+    curl <host>:<flask_port>/getAll
+# Returns the database.
+    curl <host>:<flask_port>/getAnimal/?animal_id=...
+# Query an animal ID.
+    curl <host>:<flask_port>/outcomeType/<outcome_type>
+# Sort by animal type.
+    curl <host>:<flask_port>/updateAnimal/?animal_id=...
+# Updates an animal with an animal ID specified.
+    curl -X POST -H "content-type: application/json" -d '{<Animal>} <host>:<flask_port>/addAnimal
+# Add an animal.
+    curl <host>:<flask_port>/delete/?animal_id=...
+# Deletes an animal with an animal ID specified.
+    curl -X POST -d <host>:<flask_port>/jobs
+# Lists jobs.
+    curl <host>:<flask_port>/download/<jobuuid>
+# Obtains image from a job.
 
 
