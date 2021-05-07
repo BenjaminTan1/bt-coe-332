@@ -25,3 +25,7 @@ Output:
     curl <host>:<flask_port>/delete/?animal_id=...                                                           Deletes an animal with an animal ID specified.
     curl -X POST -d <host>:<flask_port>/jobs                                                                 Lists jobs.
     curl <host>:<flask_port>/download/<jobuuid>                                                              Obtains image from a job.
+
+Then, make sure to load in the data from data.json into redis first before executing other commands.
+
+    root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/load
