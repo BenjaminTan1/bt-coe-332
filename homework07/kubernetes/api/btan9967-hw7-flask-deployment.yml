@@ -1,0 +1,31 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-hw7-flask-deployment
+  labels:
+    username: btan9967
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      username: btan9967
+  template:
+    metadata:
+      labels:
+        username: btan9967
+        app: btan9967-hw7-flask
+    spec:
+      containers:
+        - name: hw7
+          imagePullPolicy: Always
+          image: benjamintan1/hw7:latest
+          args: ["api.py"] # BASED ON DOCKERFILE ALREADY HAVING THE "PYTHON"
+          env:
+          - name: FLASK_APP
+            value: "api.py"
+          - name: REDIS_IP
+            value: "10.102.161.2" # EDIT TO MATCH
+          ports:
+          - name: http
+            containerPort: 5000

@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: btan9967-hw7-flask-service
+  labels:
+    username: btan9967
+spec:
+  type: ClusterIP
+  selector:
+    username: btan9967
+    app: btan9967-hw7-flask
+  ports:
+  - name: btan9967-hw7-flask
+    port: 5000
+    targetPort: 5000

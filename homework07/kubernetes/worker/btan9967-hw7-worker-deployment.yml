@@ -1,0 +1,32 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-hw7-worker-deployment
+  labels:
+    username: btan9967
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      username: btan9967
+  template:
+    metadata:
+      labels:
+        username: btan9967
+        app: btan9967-hw7-worker
+    spec:
+      containers:
+        - name: hw7
+          imagePullPolicy: Always
+          image: btan9967/hw7:latest
+          args: ["worker.py"]
+          env:
+          - name: REDIS_IP
+            value: "10.102.161.2" # Change this to the Cluster IP of the redis service
+          - name: PYTHONUNBUFFERED
+            value: "0"
+          - name: WORKER_IP
+            valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP

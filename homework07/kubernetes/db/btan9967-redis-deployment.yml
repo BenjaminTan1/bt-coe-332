@@ -1,0 +1,31 @@
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-redis-deployment
+  labels:
+    username: btan9967
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      username: btan9967
+  template:
+    metadata:
+      labels:
+        username: btan9967
+        app: btan9967-redis
+    spec:
+      containers:
+        - name: redis
+          imagePullPolicy: Always
+          image: redis:5.0.0
+          ports:
+          - name: http
+            containerPort: 6379
+          volumeMounts:
+          - name: btan9967-redis-pvc
+            mountPath: "/data"
+      volumes:
+      - name: btan9967-redis-pvc
+        persistentVolumeClaim:
+          claimName: btan9967-redis-pvc
