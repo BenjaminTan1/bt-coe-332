@@ -4,6 +4,10 @@
 ---
 <p>make build-all</p>
 ---
+<p>Then, push the images using:</p>
+---
+<p>docker push benjamintan1/Image_Name:latest</p>
+---
 <h2>Kubernetes Execution</h2>
 <p>In the deploy directory, run the commands:</p>
 ---
