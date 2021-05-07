@@ -1,0 +1,30 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-final-redis-deployment
+  labels:
+    app: btan9967-final-redis
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: btan9967-final-redis
+      env: test
+  template:
+    metadata:
+      labels:
+        app: btan9967-final-redis
+        env: test
+    spec:
+      containers:
+        - name: btan9967-final-redis
+          image: redis:5.0.0
+          volumeMounts:
+          - name: btan9967-final-data
+            mountPath: "/data"
+      volumes:
+      - name: btan9967-final-data
+        persistentVolumeClaim:
+          claimName: btan9967-final-data

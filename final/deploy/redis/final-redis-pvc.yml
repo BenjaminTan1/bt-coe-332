@@ -1,0 +1,15 @@
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: btan9967-final-data
+  labels:
+    username: btan9967
+    env: final
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: rbd
+  resources:
+    requests:
+      storage: 1Gi

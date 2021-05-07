@@ -1,0 +1,23 @@
+---
+version: '3'
+services:
+    redis:
+        image: benjamintan1/final-db:latest
+        container_name: btan9967-db
+        ports:
+            - 6411:6379
+        user: "861303:821716"
+        volumes:
+            - ../data/:/data/
+    flask:
+        image: benjamintan1/final-api:latest
+        container_name: btan9967-api
+        environment:
+            - REDIS_IP=btan9967-db
+        ports:
+            - 5031:5000
+    worker:
+        image: benjamintan1/final-wrk:latest
+        container_name: btan9967-wrk
+        environment:
+            - REDIS_IP=btan9967-db

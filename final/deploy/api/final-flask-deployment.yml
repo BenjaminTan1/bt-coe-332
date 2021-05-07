@@ -1,0 +1,33 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-final-flask-deployment
+  labels:
+    app: btan9967-final-flask
+    username: btan9967
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: btan9967-final-flask
+  template:
+    metadata:
+      labels:
+        app: btan9967-final-flask
+        env: test
+    spec:
+      containers:
+        - name: btan9967-final-flask
+          image: benjamintan1/final-api:latest
+          imagePullPolicy: Always
+          command: ["python", "api.py"]
+          env:
+          - name: FLASK_APP
+            value: "api.py"
+          - name: REDIS_IP
+            value: "10.101.199.157" # Redis service IP_ADDRESS
+          ports:
+          - name: http
+            containerPort: 5000          

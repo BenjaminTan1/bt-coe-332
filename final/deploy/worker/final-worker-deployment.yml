@@ -1,0 +1,32 @@
+piVersion: apps/v1
+kind: Deployment
+metadata:
+  name: btan9967-final-worker-deployment
+  labels:
+    app: btan9967-final-worker
+    username: btan9967
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: btan9967-final-worker
+  template:
+    metadata:
+      labels:
+        app: btan9967-final-worker
+        username: btan9967
+    spec:
+      containers:
+        - name: btan9967-final-worker
+          imagePullPolicy: Always
+          image: benjamintan1/final-wrk:latest
+          command: ["python","worker.py"]
+#         command: ['sleep', '999999999']
+          env:
+          - name: REDIS_IP
+            value: "10.101.199.157" # Redis service IP_ADDRESS
+          - name: WORKER_IP
+            valueFrom:
+              fieldRef:
+                fieldPath: status.podIP
