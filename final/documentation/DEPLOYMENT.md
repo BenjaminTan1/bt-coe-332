@@ -1,7 +1,9 @@
 <h1>Deployment Information</h1>
 <h2>Docker Images</h2>
-<p>In the Makefile, use:</p>
-<p>$ make build-all</p>
+<p>In the Makefile directory, use:</p>
+---
+<p>make build-all</p>
+---
 <h2>Kubernetes Execution</h2>
 <p>In the deploy directory, run the commands:</p>
 ---
