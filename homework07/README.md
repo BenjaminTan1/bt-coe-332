@@ -59,3 +59,7 @@
 <p>Same output wiht different UUID</p>
 ---
 <p>Then when we run the same commands as before with print(rd.hgetall(key)) in the python interactive shell, we get that each worker did 5 tasks each</p>
+<p>In [1]: import redis</p>
+<p>In [2]: rd = redis.StrictRedis(host="IP_ADDRESS_REDIS", port=6379, db=3)</p>
+<p>In [3]: for key in rd.keys():</p>
+<p>   ...:     print(rd.hgetall(key))</p>
