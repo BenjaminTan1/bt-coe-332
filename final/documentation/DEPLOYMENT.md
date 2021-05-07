@@ -7,7 +7,8 @@
 <p>Then, push the images using:</p>
 ---
 <p>docker push benjamintan1/Image_Name:latest</p>
----
+<p>For example:</p>
+<p>docker push benjamintan1/final-api:latest</p>
 <h2>Kubernetes Execution</h2>
 <p>In the deploy directory, run the commands:</p>
 ---
