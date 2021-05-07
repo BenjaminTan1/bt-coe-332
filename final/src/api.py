@@ -7,6 +7,7 @@ import redis
 import os
 import uuid
 import datetime
+import hotqueue
 
 # Sets the redis IP_ADDRESS from the service.
 
@@ -17,26 +18,28 @@ if not redis_ip:
 
 app = Flask(__name__)
 rd = redis.StrictRedis(host = redis_ip, port=6379, db = 0)
-q = HotQueue('queue', host = redis_ip, port=6379, db=1)
+q = hotqueue.HotQueue('queue', host = redis_ip, port=6379, db=1)
 
 # Returns the data under the given key.
 def get_data():
-    return json.loads(rd.get('intakes_key').decode('utf-8'))
+    with open("data.json","r") as json_file:
+        userdata = json.load(json_file)
+    return userdata
 
 @app.route('/', methods=['GET'])
 def instructions():
     return """
     The route are as follows:
-    curl <host>:<flask_port>/                            			# General info.
-    curl <host>:<flask_port>/load                        			# Adds data.json info to the database.
-    curl <host>:<flask_port>/getAll                      			# Returns the database.
-    curl <host>:<flask_port>/getAnimal/?animal_id=...    			# Query an animal ID.
-    curl <host>:<flask_port>/outcomeType/<outcome_type>  			# Sort by animal type. 
-    curl <host>:<flask_port>/updateAnimal/?animal_id=... 			# Updates an animal with an animal ID specified.
-    curl -X POST -H "content-type: application/json" -d '{<Animal>} <host>:<flask_port>/addAnimal # Add an animal.
-    curl <host>:<flask_port>/delete/?animal_id=...       			# Deletes an animal with an animal ID specified.
-    curl -X POST -d <host>:<flask_port>/jobs                        		# Lists jobs.
-    curl <host>:<flask_port>/download/<jobuuid>          			# Obtains image from a job.
+    curl <host>:<flask_port>/                            								# General info.
+    curl <host>:<flask_port>/load                        								# Adds data.json info to the database.
+    curl <host>:<flask_port>/getAll                      								# Returns the database.
+    curl <host>:<flask_port>/getAnimal/?animal_id=...    								# Query an animal ID.
+    curl <host>:<flask_port>/outcomeType/<outcome_type>  								# Sort by animal type. 
+    curl <host>:<flask_port>/updateAnimal/?animal_id=... 								# Updates an animal with an animal ID specified.
+    curl -X POST -H "content-type: application/json" -d '{<Animal>} <host>:<flask_port>/addAnimal 			# Add an animal.
+    curl <host>:<flask_port>/delete/?animal_id=...       								# Deletes an animal with an animal ID specified.
+    curl -X POST -d <host>:<flask_port>/jobs                        							# Lists jobs.
+    curl <host>:<flask_port>/download/<jobuuid>          								# Obtains image from a job.
     
 """
 # Loads data into the redis database.
@@ -62,7 +65,7 @@ def Add():
         return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
     
     test = get_data()
-    test['intakes'].append(add)
+    test.append(add)
     rd.set('key', json.dumps(test))
 
     return json.dumps(get_data, indent=2)
@@ -96,6 +99,9 @@ def Update():
     breed = request.args.get('breed')
     color = request.args.get('color')
 
+    # Creates a variable for outputting the updated animal.
+    output = {}
+
     for x in test:
         if x['animal_id'] == animal_id:
             x['name'] = name
@@ -108,9 +114,10 @@ def Update():
             x['age_upon_outcome'] = age_upon_outcome
             x['breed'] = breed
             x['color'] = color
+            output = x
          
     rd.set('key', json.dumps(test))
-    return json.dumps(intake, indent=2)
+    return json.dumps(output, indent=2)
 
 # Delete Route
 @app.route('/delete/', methods=['GET'])
@@ -127,11 +134,11 @@ def delete():
 
 # Extra route functionality in order to double check the work of matlab plots.
 @app.route('/outcomeType/<outcome_type>', methods=['GET'])
-def SortByType(Animal_Type):
+def SortByOutcome(outcome_type):
     test = get_data()
-    jsonList = test
 
-    output = [x for x in jsonList if x['outcome_type'] == outcome_type]
+    output = {}
+    output.append([x for x in test if x['outcome_type'] == outcome_type])
 
     return json.dumps(output, indent=2)
 

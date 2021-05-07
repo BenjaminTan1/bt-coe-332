@@ -20,11 +20,13 @@ spec:
     spec:
       containers:
         - name: btan9967-final-redis
-          image: redis:5.0.0
+          image: benjamintan1/final-db:latest
+          imagePullPolicy: Always
+          command: ["redis-server"]
           volumeMounts:
-          - name: btan9967-final-data
+          - name: btan9967-final-redis-pvc
             mountPath: "/data"
       volumes:
-      - name: btan9967-final-data
+      - name: btan9967-final-redis-pvc
         persistentVolumeClaim:
-          claimName: btan9967-final-data
+          claimName: btan9967-final-redis-pvc

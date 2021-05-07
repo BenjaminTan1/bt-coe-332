@@ -4,14 +4,13 @@ kind: Service
 metadata:
   name: btan9967-final-flask-service
   labels:
-    username: btan9967
     env: test
+    app: btan9967-final-flask
 spec:
   type: ClusterIP
   selector:
-    username: btan9967
     app: btan9967-final-flask
   ports:
-  - name: btan9967-flask
+  - name: flask-port
     port: 5000
     targetPort: 5000

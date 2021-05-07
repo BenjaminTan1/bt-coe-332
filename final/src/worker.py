@@ -3,6 +3,7 @@ from jobs import q, update_job_status, add_worker_ip
 import matplotlib.pyplot as plt
 import time
 import datetime
+import os
 import redis
 
 #worker_ip = os.environ.get('WORKER_IP')

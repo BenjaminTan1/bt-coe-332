@@ -20,12 +20,9 @@ spec:
     spec:
       containers:
         - name: btan9967-final-flask
-          image: benjamintan1/final-api:latest
+          image: benjamintan1/final-api:latest 
           imagePullPolicy: Always
-          command: ["python", "api.py"]
           env:
-          - name: FLASK_APP
-            value: "api.py"
           - name: REDIS_IP
             value: "10.101.199.157" # Redis service IP_ADDRESS
           ports:

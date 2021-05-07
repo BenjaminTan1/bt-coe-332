@@ -2,9 +2,8 @@
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: btan9967-final-data
+  name: btan9967-final-redis-pvc
   labels:
-    username: btan9967
     env: final
 spec:
   accessModes:
