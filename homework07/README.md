@@ -75,5 +75,5 @@
  b'end': b'stop!',
  b'id': b'e8323442-8e38-4990-a712-8398822bf8a4',
  b'worker': b'WORKER_IP_ADDRESS2'}</p>
- ...
+ <p>...</p>
  ---
