@@ -1,7 +1,11 @@
 <h1>Austin Animal Center Outcome Analyses</h1>
 <h4>Benjamin Tan</h4>
 
-Uses data from the Austin Animal Center due to their data being already formatted into a json format. Runs analyses on the outcomes of animals that enter the center. See "documentation" for instructions on deployments, etc. Data can be found in the "src" folder.
+<p>Uses data from the Austin Animal Center due to their data being already formatted into a json format. Runs analyses on the outcomes of animals that enter the center. See "documentation" for instructions on deployments, etc. Data can be found in the "src" folder.</p>
+
+<h3>Instructions<h/3>
+<p>To get instructions for routes, run the command below after execing into an interactive python shell.
+<p>curl host:flask_port/</p>
 
 <h3>File Structure</h3>
 <p>data</p>
