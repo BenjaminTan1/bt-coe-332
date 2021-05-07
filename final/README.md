@@ -5,12 +5,12 @@
 
 <h3>Instructions</h3>
 <p>Look through DEPLOYMENT.md under the directory "documentation", then to get instructions for routes, run the command below after execing into an interactive python shell.</p>
----
-<p>curl host:flask_port/</p>
----
+
+    curl host:flask_port/</p>
+    
 <p>Example:</p>
-<p>root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/</p>
-  # The route are as follows:
+<p>root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/</p>The route are as follows:
+
     curl <host>:<flask_port>/                                                                                General info.
     curl <host>:<flask_port>/load                                                                            Adds data.json info to the database.
     curl <host>:<flask_port>/getAll                                                                          Returns the database.
@@ -21,5 +21,3 @@
     curl <host>:<flask_port>/delete/?animal_id=...                                                           Deletes an animal with an animal ID specified.
     curl -X POST -d <host>:<flask_port>/jobs                                                                 Lists jobs.
     curl <host>:<flask_port>/download/<jobuuid>                                                              Obtains image from a job.
-
-
