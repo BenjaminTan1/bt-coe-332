@@ -92,6 +92,7 @@ def Update():
     monthyear = request.args.get('monthyear')
     date_of_birth = request.args.get('date_of_birth')
     outcome_type = request.args.get('outcome_type')
+    outcome_subtype = request.args.get('outcome_subtype')
     animal_type = request.args.get('animal_type')
     sex_upon_outcome = request.args.get('sex_upon_outcome')
     age_upon_outcome = request.args.get('age_upon_outcome')
