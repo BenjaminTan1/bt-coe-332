@@ -11,8 +11,6 @@
 <p>Example:</p>
 
     [btan9967@isp02 ~]$ kubectl exec -it py-debug-deployment-5cc8cdd65f-ttl84 -- /bin/bash
-    root@py-debug-deployment-5cc8cdd65f-ttl84:/#
-
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/
     
 Output:
