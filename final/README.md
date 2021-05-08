@@ -32,6 +32,7 @@ Then, make sure to load in the data from data.json into redis first before execu
     The file data.json was imported into database.
 
 <h1>Sample trial curl commands include...</h1>
+<p>An animal_id used for debuggin is A833556</p>
 <h3>getAll</h3>
 
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/getAll
@@ -50,3 +51,40 @@ Then, make sure to load in the data from data.json into redis first before execu
       "color": "Lynx Point"
     },
     ...
+ 
+<h3>getAnimal</h3>
+
+    root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/getAnimal/?animal_id=A833556
+    {
+      "animal_id": "A833556",
+      "datetime": "2021-05-03T16:30:00.000",
+      "monthyear": "2021-05-03T16:30:00.000",
+      "date_of_birth": "2021-04-14T00:00:00.000",
+      "outcome_type": "Transfer",
+      "outcome_subtype": "Partner",
+      "animal_type": "Cat",
+      "sex_upon_outcome": "Intact Female",
+      "age_upon_outcome": "2 weeks",
+      "breed": "Domestic Medium Hair",
+      "color": "Brown Tabby"
+    }
+
+<h3>delete</h3>
+<p>Code below doesn't declare information for the animal, so it is left default as null. To update individual values, put in /?name=value, for example /?animal_id=testID into the URL.</p>
+
+    root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/updateAnimal/?animal_id=A833556
+    {
+      "animal_id": "A833556",
+      "datetime": null,
+      "monthyear": null,
+      "date_of_birth": null,
+      "outcome_type": null,
+      "outcome_subtype": null,
+      "animal_type": null,
+      "sex_upon_outcome": null,
+      "age_upon_outcome": null,
+      "breed": null,
+      "color": null,
+      "name": null
+    }
+    
