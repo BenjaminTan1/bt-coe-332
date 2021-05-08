@@ -30,3 +30,8 @@
 <p>To debug, run the commands:</p>
 
     kubectl logs POD_NAME
+
+<p>After running these commands and ensuring the pods are working, copy the IP_ADDRESS of the redis service and paste it into the files:</p>
+    
+    /deploy/api/final-flask-deployment.yml
+    /deploy/worker/final-worker-deployment.yml
