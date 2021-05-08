@@ -31,7 +31,8 @@ Then, make sure to load in the data from data.json into redis first before execu
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/load
     The file data.json was imported into database.
 
-Sample trial curl commands include:
+<h1>Sample trial curl commands include...</h1>
+<h3>getAll</h3>
 
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/getAll
     [
