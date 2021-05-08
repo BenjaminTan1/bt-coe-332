@@ -69,7 +69,7 @@ Then, make sure to load in the data from data.json into redis first before execu
       "color": "Brown Tabby"
     }
 
-<h3>delete</h3>
+<h3>updateAnimal</h3>
 <p>Code below doesn't declare information for the animal, so it is left default as null. To update individual values, put in /?name=value, for example /?animal_id=testID into the URL.</p>
 
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/updateAnimal/?animal_id=A833556
