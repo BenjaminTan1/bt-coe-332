@@ -30,3 +30,22 @@ Then, make sure to load in the data from data.json into redis first before execu
 
     root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/load
     The file data.json was imported into database.
+
+Sample trial curl commands include:
+
+    root@py-debug-deployment-5cc8cdd65f-ttl84:/# curl 10.103.197.163:5000/getAll
+    [
+      {
+      "animal_id": "A464421",
+      "name": "Cairo",
+      "datetime": "2021-05-06T18:10:00.000",
+      "monthyear": "2021-05-06T18:10:00.000",
+      "date_of_birth": "2007-01-19T00:00:00.000",
+      "outcome_type": "Adoption",
+      "animal_type": "Cat",
+      "sex_upon_outcome": "Spayed Female",
+      "age_upon_outcome": "14 years",
+      "breed": "Siamese Mix",
+      "color": "Lynx Point"
+    },
+    ...
