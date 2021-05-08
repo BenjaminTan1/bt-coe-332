@@ -18,6 +18,8 @@ if not redis_ip:
 
 app = Flask(__name__)
 rd = redis.StrictRedis(host = redis_ip, port=6379, db = 0)
+rd_jobs = redis.StrictRedis(host=redis_ip, port=6379, db=2)
+rd_imgs = redis.StrictRedis(host=redis_ip, port=6379, db=3)
 q = hotqueue.HotQueue('queue', host = redis_ip, port=6379, db=1)
 
 # Returns the data under the given key.
@@ -34,7 +36,7 @@ def instructions():
     curl <host>:<flask_port>/load                        								# Adds data.json info to the database.
     curl <host>:<flask_port>/getAll                      								# Returns the database.
     curl <host>:<flask_port>/getAnimal/?animal_id=...    								# Query an animal ID.
-    curl <host>:<flask_port>/outcomeType/<outcome_type>  								# Sort by animal type. 
+    curl <host>:<flask_port>/outcomeType/<outcome_type>  								# Sort by outcome type. 
     curl <host>:<flask_port>/updateAnimal/?animal_id=... 								# Updates an animal with an animal ID specified.
     curl -X POST -H "content-type: application/json" -d '{<Animal>} <host>:<flask_port>/addAnimal 			# Add an animal.
     curl <host>:<flask_port>/delete/?animal_id=...       								# Deletes an animal with an animal ID specified.
@@ -59,16 +61,13 @@ def GetAll():
 # Create Route
 @app.route('/addAnimal', methods = ['GET','POST'])
 def Add():
-    try:
-        add = request.get_json(force=True)
-    except Exception as e:
-        return True, json.dumps({'status': "Error", 'message': 'Invalid JSON: {}.'.format(e)})
+    add = request.json
     
     test = get_data()
     test.append(add)
     rd.set('key', json.dumps(test))
 
-    return json.dumps(get_data, indent=2)
+    return json.dumps(get_data(), indent=2)
 
 # Read Route
 @app.route('/getAnimal/', methods=['GET'])
@@ -132,16 +131,6 @@ def delete():
 
     return 'Animal deleted.'
 
-# Extra route functionality in order to double check the work of matlab plots.
-@app.route('/outcomeType/<outcome_type>', methods=['GET'])
-def SortByOutcome(outcome_type):
-    test = get_data()
-
-    output = {}
-    output.append([x for x in test if x['outcome_type'] == outcome_type])
-
-    return json.dumps(output, indent=2)
-
 # Job for making matlab plots
 @app.route('/jobs', methods=['POST'])
 def jobs_api():
@@ -158,7 +147,7 @@ def jobs_api():
 def download(jobuuid):
     path = f'/app/{jobuuid}.png'
     with open(path, 'wb') as f:
-        f.write(rd.hget(jobuuid, 'image'))
+        f.write(rd_imgs.hget(jobuuid, 'image'))
     return send_file(path, mimetype='image/png', as_attachment=True)
 
 if __name__ == '__main__':
