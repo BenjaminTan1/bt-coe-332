@@ -88,7 +88,7 @@ Then, make sure to load in the data from data.json into redis first before execu
       "name": null
     }
 
-<h1>Post Curl Commands</h1>
+<h1>POST Curl Commands</h1>
 <p>For routes that include POST such as the addAnimal or jobs methods, input the command as given.</p>
 
     curl -X POST -H "content-type: application/json" -d '{<Animal_Type_Name>=<Animal_Type_Value} <host>:<flask_port>/addAnimal
